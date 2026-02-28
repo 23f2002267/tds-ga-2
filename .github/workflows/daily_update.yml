@@ -1,0 +1,31 @@
+name: Scheduled Daily Update
+
+on:
+  schedule:
+    # Runs at 05:30 UTC every day
+    # Format: minute hour day month day-of-week
+    - cron: '30 5 * * *'
+  workflow_dispatch: # Allows you to trigger it manually for testing
+
+jobs:
+  automated-commit:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      # Requirement: Step with your specific email in the name
+      - name: Initialize update for 23f2002267@ds.study.iitm.ac.in
+        run: |
+          echo "Last updated on: $(date)" > daily_log.txt
+
+      - name: Configure Git
+        run: |
+          git config --global user.name "DevSync Automation"
+          git config --global user.email "23f2002267@ds.study.iitm.ac.in"
+
+      - name: Commit and Push changes
+        run: |
+          git add daily_log.txt
+          # Only commit if there are changes to avoid workflow errors
+          git diff --quiet && git diff --staged --quiet || (git commit -m "Daily automated update $(date)" && git push)

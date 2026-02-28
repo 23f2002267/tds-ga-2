@@ -1,5 +1,7 @@
 # q-git-revert-env
 
+[![Scheduled Daily Update](https://github.com/23f2002267/tds-ga-2/actions/workflows/daily_update.yml/badge.svg)](https://github.com/23f2002267/tds-ga-2/actions/workflows/daily_update.yml)
+
 A Flask-based REST API service.
 
 ## Version
